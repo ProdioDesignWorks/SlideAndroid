@@ -30,6 +30,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.SigninWithEmailActivity"
+            android:label="@string/title_activity_facebook_signin"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name=".activities.EmailVerify"
+            android:label="@string/app_name"
+            android:exported="false"
+            />
+        <activity android:name=".activities.DeepLinkParserActivity"
+            android:label="@string/app_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="getslide.io" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="www.getslide.io" />
+            </intent-filter>
+        </activity>
 
 
     </application>

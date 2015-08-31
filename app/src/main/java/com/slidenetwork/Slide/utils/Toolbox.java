@@ -1,8 +1,21 @@
 package com.slidenetwork.Slide.utils;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.slidenetwork.Slide.api.entities.TokenRequest;
+import com.slidenetwork.Slide.api.entities.TokenRequestData;
+import com.slidenetwork.Slide.api.entities.patch_token.PatchTokenRequest;
+import com.slidenetwork.Slide.api.entities.patch_token.PatchTokenRequestData;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public final class Toolbox {
@@ -89,5 +102,57 @@ public final class Toolbox {
             return true;
         }
 
+    }
+
+    public static PatchTokenRequest getPatchRequest(String auth){
+        PatchTokenRequest req=new PatchTokenRequest();
+        PatchTokenRequestData data=new PatchTokenRequestData();
+        data.setAuth_token(auth);
+        data.setEmail("");
+        data.setType(Constants.DEEPLINK_TOKEN);
+        data.setAuth_method(Constants.AUTHMETHOD.EMAIL.getName());
+        req.setData(data);
+        return req;
+    }
+
+    public static TokenRequest getTokenRequest(Context context,String email){
+        TokenRequest request=new TokenRequest();
+        TokenRequestData data=new TokenRequestData();
+        data.setAuthMethod(Constants.AUTHMETHOD.EMAIL.getName());
+        data.setAuthToken("");
+//        jsonParam.put("auth_token", "");
+        data.setEmail(email);
+        data.setDeviceName(Utility.getDeviceName());
+        ArrayList<Integer> nums=new ArrayList<Integer>();
+        nums.add(750);
+        nums.add(1334);
+        nums.add(24);
+        data.setDeviceDisplay(nums);
+
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceId = telephonyManager.getDeviceId();
+        data.setDeviceIdentifier(deviceId);
+        Calendar cal=Calendar.getInstance(Locale.getDefault());
+        cal.setTimeInMillis(System.currentTimeMillis());
+
+        String date= Toolbox.formatDate(cal.getTimeInMillis(), TimeZone.getDefault());
+        data.setLocalTime(date);
+//        Toolbox.formatDate(cal.getTimeInMillis(), TimeZone.getDefault());
+        data.setLocale(Locale.getDefault().getDisplayLanguage());
+        request.setData(data);
+        return request;
+    }
+
+    /**
+     * Format date.
+     *
+     * @param unixTimestamp the unix timestamp
+     * @param timeZone      the time zone
+     * @return the string
+     */
+    public static String formatDate(long unixTimestamp, TimeZone timeZone) {
+        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat.toPattern());
+        sdf.setTimeZone(timeZone);
+        return sdf.format(new Date(unixTimestamp));
     }
 }
