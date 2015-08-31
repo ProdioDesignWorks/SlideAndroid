@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.slidenetwork.Slide.R;
+import com.slidenetwork.Slide.activities.SigninWithEmailActivity;
 
 
 public class SignupFragment extends Fragment {
@@ -35,6 +36,8 @@ public class SignupFragment extends Fragment {
         {
             @Override
             public void onClick(View v){
+                Intent fbIntent = new Intent(getActivity(), SigninWithEmailActivity.class);
+                startActivity(fbIntent);
             }
         });
 
