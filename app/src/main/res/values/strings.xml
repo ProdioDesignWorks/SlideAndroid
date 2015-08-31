@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Slide</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_facebook_signin">EmailSigninActivity</string>
+    <string name="title_activity_email_verify">EmailVerify</string>
+
+</resources>
